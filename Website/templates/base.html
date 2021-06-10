@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel = "icon" href = 
+  "https://www.google.com/url?sa=i&url=https%3A%2F%2Frevenuearchitects.com%2Fblog%2Fblog-blogs-blog-posts-not-blogs%2F&psig=AOvVaw0ICP4DZdQo_dpLDyjAxTlP&ust=1623397935323000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMjhit3KjPECFQAAAAAdAAAAABAI" 
+          type = "image/x-icon">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <title>{%block title%}Home{% endblock %}</title>
 </head>
-<body>
+<body style="background-color: lightseagreen;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbar">
-            <div class="navbar-nav">
-              {% if user.is_authenticated%}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                {% if user.is_authenticated%}
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+              </li>
+              <li>
                 <a class="nav-item nav-link" id="home" href="/">Home Page</a>
-                <a class="nav-item nav-link" id="home" href="/profile">Profile</a>
-              {% else %}
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{user.firstName}}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/profile">Profile</a></li> 
+                </ul>
+                <li>
+                <a class="nav-item nav-link" id="viewblogs" href="/allblogs">View Blogs</a>
+                </li>
+              </li>
+            {%else%}
+            <li class="nav-item">
                 <a class="nav-item nav-link" id="login" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-item nav-link" id="signup" href="/signup">Sign Up</a>
-              {%endif%}
+              </li>
             </div>
           </div>
+        {%endif%}
       </nav>
       {% with messages=get_flashed_messages(with_categories=true)%}
       {% if messages %}
@@ -49,16 +70,6 @@
           {%block content%} 
           {%endblock%}
       </div>
-
-
-
-
-
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{url_for('static',filename='index.js')}}"></script>
 </body>
 </html>
