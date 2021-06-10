@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{% block title %}{{user.firstName+ " "+user.lastName}}'s Blogs{% endblock %}
+
+{% block content %}
+<h1 align="center">Blogs</h1>
+<div class="card-body" style="background-color:cornflowerblue;">
+    <h1>Blog Count:{{length}}</h1>
+</div>
+<br/>
+<ul class="list-group list-group-flush">
+{% for blog in user.blogs%}
+<figure>
+    <div class="card-body" style="background-color:lightblue;">
+      <p>{{blog.data}}</p>
+    <div align="right">
+        <cite align="right" title="Source Title">{{user.firstName + " "+ user.lastName}}</cite>
+        <p>{{blog.date}}</p>
+    </div>
+      </div>
+  </figure>
+{% endfor %}
+</ul>
+<form method="POST">
+    <textarea name="blog" id="blog" class="form-control" placeholder="Write new blog here"></textarea><br/>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add New Post</button>
+    </div>
+
+</form>
+{% endblock %}
