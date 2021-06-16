@@ -6,9 +6,23 @@ views=Blueprint('views',__name__)
 from . import db
 from .models import Blog, User
 
-@views.route("/",methods=["GET","POST"])
+@views.route("/")
 @login_required
 def home():
+    blogAll=Blog.query.all()
+    blogAll=blogAll[::-1]
+    blogLength=len(blogAll)
+    author=[]
+    for blog in blogAll:
+        author.append(User.query.filter_by(id=blog.userId).first())
+    return render_template("allblogs.html",blogs=blogAll,author=author,user=current_user,blogLength=blogLength)
+
+@views.route("/profile")
+def userPage():
+    return render_template("profile.html",user=current_user)
+
+@views.route("/writeBlog",methods=["GET","POST"])
+def writeBlog():
     blogLength=len(current_user.blogs)
     if request.method=="POST":
         blog=request.form.get('blog')
@@ -21,20 +35,6 @@ def home():
             blogLength=len(current_user.blogs)
             flash("Blog added!!",category='success')
     return render_template("home.html",user=current_user,length=blogLength)
-
-@views.route("/profile")
-def userPage():
-    return render_template("profile.html",user=current_user)
-
-@views.route("/allblogs")
-def allBlogs():
-    blogAll=Blog.query.all()
-    blogAll=blogAll[::-1]
-    blogLength=len(blogAll)
-    author=[]
-    for blog in blogAll:
-        author.append(User.query.filter_by(id=blog.userId).first())
-    return render_template("allblogs.html",blogs=blogAll,author=author,user=current_user,blogLength=blogLength)
 
 @views.route("/bloggers")
 
