@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}All Blogs{% endblock %}
+{% block content%}
+{%for i in range(blogLength)%}
+<figure>
+  <div class="card-body" style="background-color:lightblue;">
+    <p>{{blogs[i].data}}</p>
+  <div align="right">
+      <cite align="right" title="Source Title">{{author[i].firstName + " " +author[i].lastName}}</cite>
+      <p>{{blogs[i].date}}</p>
+  </div>
+    </div>
+</figure>
+{% endfor %}
+{%endblock%}

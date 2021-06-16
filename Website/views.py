@@ -1,8 +1,10 @@
 from flask import Blueprint,render_template,request,flash,jsonify,json
 from flask_login import login_user,current_user,login_required
+from sqlalchemy.sql.functions import user
+import requests
 views=Blueprint('views',__name__)
 from . import db
-from .models import Blog
+from .models import Blog, User
 
 @views.route("/",methods=["GET","POST"])
 @login_required
@@ -11,7 +13,7 @@ def home():
     if request.method=="POST":
         blog=request.form.get('blog')
         if len(blog)<=1:
-            flash("Write a longer note !",category='error')
+            flash("Write a longer blog !",category='error')
         else:
             newBlogger=Blog(data=blog,userId=current_user.id)
             db.session.add(newBlogger)
@@ -20,19 +22,32 @@ def home():
             flash("Blog added!!",category='success')
     return render_template("home.html",user=current_user,length=blogLength)
 
-@views.route("/delete-Blog",methods=["POST"])
-
-def delete_Blog():
-    blog=json.loads(request.data)
-    blogID=blog['blogID']
-    blog=Blog.query.get(blogID)
-    if blog:
-        if blog.userId==current_user.userId:
-            db.session.delete(blog)
-            db.session.commit()
-    return jsonify({})
-
-
 @views.route("/profile")
 def userPage():
     return render_template("profile.html",user=current_user)
+
+@views.route("/allblogs")
+def allBlogs():
+    blogAll=Blog.query.all()
+    blogAll=blogAll[::-1]
+    blogLength=len(blogAll)
+    author=[]
+    for blog in blogAll:
+        author.append(User.query.filter_by(id=blog.userId).first())
+    return render_template("allblogs.html",blogs=blogAll,author=author,user=current_user,blogLength=blogLength)
+
+@views.route("/bloggers")
+
+def bloggers():
+    users=User.query.all()
+    return render_template("bloggers.html",users=users,user=current_user)
+
+@views.route("/editprofile")
+
+def editProfile():
+    return render_template("editprofile.html",user=current_user)
+
+@views.route("/chat")
+
+def chat():
+    return render_template("chat.html",user=current_user)

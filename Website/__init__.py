@@ -3,7 +3,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager
+import socketio
 from sqlalchemy.orm import query
+
+from flask_socketio import SocketIO,send
+
 
 db=SQLAlchemy()
 
@@ -40,3 +44,4 @@ def createDB(app):
     if not path.exists('Website/'+DB_NAME):
         db.create_all(app=app)
         print('Created db')
+
