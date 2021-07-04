@@ -7,7 +7,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <title>{%block title%}Home{% endblock %}</title>
+    <title>{%block title%}Home{% endblock %} | Word on the Street</title>
 </head>
 <body style="background-color: lightseagreen;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -21,7 +21,7 @@
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
               </li>
               <li>
-                <a class="nav-item nav-link" id="home" href="/">Home Page</a>
+                <a class="nav-item nav-link" id="home" href="/">View Latest Wits</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,10 +32,10 @@
                 <li><a class="dropdown-item" href="/editprofile"><span class="d-block p-2 bg-primary text-white">Edit Profile</span></a></li> 
                 </ul>
                 <li>
-                <a class="nav-item nav-link" id="viewblogs" href="/writeBlog">Write New Blog</a>
+                <a class="nav-item nav-link" id="viewblogs" href="/writeBlog">Write New Wit</a>
                 </li>
                 <li>
-                  <a class="nav-item nav-link" id="viewblogs" href="/bloggers">Our Active Bloggers</a>
+                  <a class="nav-item nav-link" id="viewblogs" href="/bloggers">Our Active Users</a>
                 </li>
               </li>
             {%else%}

@@ -1,10 +1,10 @@
 {% extends "base.html"%}
-{% block title %}{{user.firstName+ " "+user.lastName}}'s Blogs{% endblock %}
+{% block title %}{{user.firstName+ " "+user.lastName}}'s Wits{% endblock %}
 
 {% block content %}
-<h1 align="center">Blogs</h1>
+<h1 align="center">Wits</h1>
 <div class="card-body" style="background-color:cornflowerblue;">
-    <h1>Blog Count:{{length}}</h1>
+    <h1>Wit Count:{{length}}</h1>
 </div>
 <br/>
 <ul class="list-group list-group-flush">
@@ -23,7 +23,7 @@
 <form method="POST">
     <textarea name="blog" id="blog" class="form-control" placeholder="Write new blog here"></textarea><br/>
     <div align="center">
-        <button type="submit" class="btn btn-primary">Add New Post</button>
+        <button type="submit" class="btn btn-primary">Add Wit</button>
     </div>
 
 </form>

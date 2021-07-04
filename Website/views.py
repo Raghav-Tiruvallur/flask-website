@@ -27,7 +27,7 @@ def writeBlog():
     if request.method=="POST":
         blog=request.form.get('blog')
         if len(blog)<=1:
-            flash("Write a longer blog !",category='error')
+            flash("Write a longer wit !",category='error')
         else:
             newBlogger=Blog(data=blog,userId=current_user.id)
             db.session.add(newBlogger)
@@ -50,4 +50,4 @@ def editProfile():
 @views.route("/chat")
 
 def chat():
-    return render_template("chat.html",user=current_user)
+    return render_template("firstPage.html")
