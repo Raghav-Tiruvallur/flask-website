@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request,flash,jsonify,json
+from flask import Blueprint,render_template,request,flash
 from flask_login import login_user,current_user,login_required
 from sqlalchemy.sql.functions import user
 import requests
@@ -42,12 +42,9 @@ def bloggers():
     users=User.query.all()
     return render_template("bloggers.html",users=users,user=current_user)
 
-@views.route("/editprofile")
 
-def editProfile():
-    return render_template("editprofile.html",user=current_user)
+@views.route("/welcome")
 
-@views.route("/chat")
+def welcome():
 
-def chat():
-    return render_template("firstPage.html")
+    return render_template("welcome.html",user=current_user)

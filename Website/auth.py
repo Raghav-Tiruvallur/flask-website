@@ -61,7 +61,39 @@ def signup():
              newAccount=User(email=email,firstName=firstName,lastName=lastName,phoneNumber=phoneNumber,password=generate_password_hash(password1,'sha256'))
              db.session.add(newAccount)
              db.session.commit()
-             #login_user(user,remember=True)
+             login_user(user,remember=True)
              flash("Account was successfully created",category='success')
              return redirect(url_for("views.home"))
      return render_template("signup.html",user=current_user)
+
+@auth.route("/editprofile",methods=['GET','POST'])
+@login_required
+def editProfile():
+      userLoggedIn=current_user
+      if request.method=="POST":
+         firstName=request.form.get('firstName')
+         lastName=request.form.get('lastName')
+         email=request.form.get('email')
+         phoneNumber=request.form.get('phoneNumber')
+         password1=request.form.get('password1')
+         confirmPassword=request.form.get('confirmPassword')
+         
+         user=User.query.filter_by(id=userLoggedIn.id).first()
+         if len(firstName)<3:
+            flash("First Name should be more than 3 characters long",category='error')
+         if len(lastName)<3:
+            flash("Last Name should be more than 3 characters long",category='error')
+         if len(phoneNumber)<8:
+              flash("Contact number must be of minimum length 8",category='error')
+         if(password1!=confirmPassword):
+            flash("The passwords do not match",category='error')
+         else:
+             user.firstName=firstName
+             user.lastName=lastName
+             user.email=email
+             user.phoneNumber=phoneNumber
+             user.password=generate_password_hash(password1)
+             db.session.commit()
+             flash("Account was successfully updated",category='success')
+             return redirect(url_for("views.home"))
+      return render_template("editprofile.html",user=current_user)
