@@ -2,14 +2,27 @@
 {% block title %}Latest Wits{% endblock %}
 {% block content%}
 {%for i in range(blogLength)%}
+  {% if author[i].id!=user.id %}
+  <figure>
+    <div class="card-body" style="background-color:lightblue;">
+      <p>{{blogs[i].data}}</p>
+    <div align="right">
+        <cite align="right" title="Source Title">{{author[i].firstName + " " +author[i].lastName}}</cite>
+        <p>{{blogs[i].date}}</p>
+    </div>
+      </div>
+  </figure>
+{% else %}
 <figure>
   <div class="card-body" style="background-color:lightblue;">
     <p>{{blogs[i].data}}</p>
   <div align="right">
+    <a href="/delete/{{user.id}}">Delete Wit</a>
       <cite align="right" title="Source Title">{{author[i].firstName + " " +author[i].lastName}}</cite>
       <p>{{blogs[i].date}}</p>
   </div>
     </div>
 </figure>
+{% endif %}
 {% endfor %}
 {%endblock%}

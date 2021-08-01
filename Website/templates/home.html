@@ -13,6 +13,8 @@
     <div class="card-body" style="background-color:lightblue;">
       <p>{{blog.data}}</p>
     <div align="right">
+        <a href="/delete/{{user.id}}">Delete Wit</a>
+        <br/>
         <cite align="right" title="Source Title">{{user.firstName + " "+ user.lastName}}</cite>
         <p>{{blog.date}}</p>
     </div>
@@ -21,7 +23,7 @@
 {% endfor %}
 </ul>
 <form method="POST">
-    <textarea name="blog" id="blog" class="form-control" placeholder="Write new blog here"></textarea><br/>
+    <textarea name="blog" id="blog" class="form-control" placeholder="Write new wit here"></textarea><br/>
     <div align="center">
         <button type="submit" class="btn btn-primary">Add Wit</button>
     </div>

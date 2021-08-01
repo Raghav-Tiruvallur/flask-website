@@ -1,7 +1,9 @@
 from flask import Blueprint,render_template,request,flash
+from flask.helpers import url_for
 from flask_login import login_user,current_user,login_required
 from sqlalchemy.sql.functions import user
 import requests
+from werkzeug.utils import redirect
 views=Blueprint('views',__name__)
 from . import db
 from .models import Blog, User
@@ -48,3 +50,17 @@ def bloggers():
 def welcome():
 
     return render_template("welcome.html",user=current_user)
+
+@views.route("/delete/<id>")
+
+def deletePost(id):
+    wit=Blog.query.filter_by(userId=id).first()
+    if wit:
+        print(wit)
+    if not wit:
+        flash("Wit does not exist",category='error')
+    else:
+        db.session.delete(wit)
+        db.session.commit()
+        flash('Wit deleted',category='success')
+    return redirect(url_for('views.home'))
