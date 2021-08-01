@@ -7,8 +7,8 @@
     <div class="card-body" style="background-color:lightblue;">
       <p>{{blogs[i].data}}</p>
     <div align="right">
-        <cite align="right" title="Source Title">{{author[i].firstName + " " +author[i].lastName}}</cite>
-        <p>{{blogs[i].date}}</p>
+        <cite align="right" ><a href="/profile/@/{{author[i].id}}" style="text-decoration: none">{{author[i].firstName + " " +author[i].lastName}}</a></cite>
+        <p>{{blogs[i].date.strftime("%-d %B %Y, %I:%M:%S%p")}}</p>
     </div>
       </div>
   </figure>
@@ -17,9 +17,9 @@
   <div class="card-body" style="background-color:lightblue;">
     <p>{{blogs[i].data}}</p>
   <div align="right">
-    <a href="/delete/{{user.id}}">Delete Wit</a>
-      <cite align="right" title="Source Title">{{author[i].firstName + " " +author[i].lastName}}</cite>
-      <p>{{blogs[i].date}}</p>
+    <a href="/delete/{{user.id}}" style="text-decoration: none">Delete Wit</a><br/>
+      <cite align="right" ><a href="/profile/@/{{author[i].id}}" style="text-decoration: none">{{author[i].firstName + " " +author[i].lastName}}</a></cite>
+      <p>{{blogs[i].date.strftime("%-d %B %Y, %I:%M:%S%p")}}</p>
   </div>
     </div>
 </figure>

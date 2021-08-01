@@ -7,7 +7,7 @@ from werkzeug.utils import redirect
 views=Blueprint('views',__name__)
 from . import db
 from .models import Blog, User
-
+import datetime
 @views.route("/")
 @login_required
 def home():
@@ -16,12 +16,9 @@ def home():
     blogLength=len(blogAll)
     author=[]
     for blog in blogAll:
-        author.append(User.query.filter_by(id=blog.userId).first())
+        value=User.query.filter_by(id=blog.userId).first()
+        author.append(value)
     return render_template("allblogs.html",blogs=blogAll,author=author,user=current_user,blogLength=blogLength)
-
-@views.route("/profile")
-def userPage():
-    return render_template("profile.html",user=current_user)
 
 @views.route("/writeBlog",methods=["GET","POST"])
 def writeBlog():
@@ -55,8 +52,6 @@ def welcome():
 
 def deletePost(id):
     wit=Blog.query.filter_by(userId=id).first()
-    if wit:
-        print(wit)
     if not wit:
         flash("Wit does not exist",category='error')
     else:
@@ -64,3 +59,9 @@ def deletePost(id):
         db.session.commit()
         flash('Wit deleted',category='success')
     return redirect(url_for('views.home'))
+
+@views.route("/profile/@/<id>")
+@login_required
+def displayProfile(id):
+    displayUser=User.query.filter_by(id=id).first()
+    return render_template("profile.html",user=displayUser)
