@@ -7,7 +7,7 @@ from werkzeug.utils import redirect
 views=Blueprint('views',__name__)
 from . import db
 from .models import Blog, User
-import datetime
+
 @views.route("/")
 @login_required
 def home():
@@ -15,14 +15,17 @@ def home():
     blogAll=blogAll[::-1]
     blogLength=len(blogAll)
     author=[]
+    dates=list(map(lambda x:[x.date.strftime("%-d %B %Y"),x.date.strftime("%I:%M %p")],blogAll))
     for blog in blogAll:
         value=User.query.filter_by(id=blog.userId).first()
         author.append(value)
-    return render_template("allblogs.html",blogs=blogAll,author=author,user=current_user,blogLength=blogLength)
+    return render_template("allblogs.html",blogs=blogAll,author=author,user=current_user,blogLength=blogLength,dates=dates)
 
 @views.route("/writeBlog",methods=["GET","POST"])
 def writeBlog():
-    blogLength=len(current_user.blogs)
+    myblogs=current_user.blogs[::-1]
+    dates=list(map(lambda x:[x.date.strftime("%-d %B %Y"),x.date.strftime("%I:%M %p")],current_user.blogs))[::-1]
+    blogLength=len(myblogs)
     if request.method=="POST":
         blog=request.form.get('blog')
         if len(blog)<=1:
@@ -31,9 +34,9 @@ def writeBlog():
             newBlogger=Blog(data=blog,userId=current_user.id)
             db.session.add(newBlogger)
             db.session.commit()
-            blogLength=len(current_user.blogs)
+            blogLength=len(myblogs)
             flash("Blog added!!",category='success')
-    return render_template("home.html",user=current_user,length=blogLength)
+    return render_template("home.html",user=current_user,length=blogLength,dates=dates,myblogs=myblogs)
 
 @views.route("/bloggers")
 

@@ -8,7 +8,8 @@
       <p>{{blogs[i].data}}</p>
     <div align="right">
         <cite align="right" ><a href="/profile/@/{{author[i].id}}" style="text-decoration: none">{{author[i].firstName + " " +author[i].lastName}}</a></cite>
-        <p>{{blogs[i].date.strftime("%-d %B %Y, %I:%M:%S%p")}}</p>
+        <p>{{dates[i][1]}}</p>
+        <p>{{dates[i][0]}}</p>
     </div>
       </div>
   </figure>
@@ -19,7 +20,8 @@
   <div align="right">
     <a href="/delete/{{user.id}}" style="text-decoration: none">Delete Wit</a><br/>
       <cite align="right" ><a href="/profile/@/{{author[i].id}}" style="text-decoration: none">{{author[i].firstName + " " +author[i].lastName}}</a></cite>
-      <p>{{blogs[i].date.strftime("%-d %B %Y, %I:%M:%S%p")}}</p>
+      <p>{{dates[i][1]}}</p>
+      <p>{{dates[i][0]}}</p>
   </div>
     </div>
 </figure>
